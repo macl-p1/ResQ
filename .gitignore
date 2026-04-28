@@ -29,7 +29,7 @@ yarn-error.log*
 .env
 .env.local
 .env*.local
-.env.production
+# NOTE: .env.production is tracked — it only has NEXT_PUBLIC_ client keys
 
 # vercel
 .vercel
