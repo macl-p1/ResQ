@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { getGCloudCredentials } from "@/lib/gcloud-credentials";
 import { logVoiceUsed } from "@/lib/analytics";
