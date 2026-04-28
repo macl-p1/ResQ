@@ -34,9 +34,9 @@ interface VolunteerProfile {
 }
 
 function urgencyColor(score: number) {
-  if (score > 75) return "#D93025";
-  if (score >= 40) return "#F29900";
-  return "#188038";
+  if (score > 75) return "#EF4444";
+  if (score >= 40) return "#F59E0B";
+  return "#22C55E";
 }
 
 function timeAgo(d: string) {
@@ -142,25 +142,25 @@ export default function VolunteerDashboardPage() {
   ];
 
   return (
-    <div className="min-h-[calc(100vh-64px)] bg-[#F8F9FA] flex flex-col pb-16 md:pb-0">
+    <div className="min-h-[calc(100vh-64px)] bg-background flex flex-col pb-16 md:pb-0">
       {/* Header */}
-      <div className="bg-white border-b border-google-grey-200 px-4 py-5">
+      <div className="bg-card border-b border-border px-4 py-5">
         <div className="max-w-lg mx-auto flex items-center gap-3">
-          <div className="h-12 w-12 rounded-full bg-google-green text-white flex items-center justify-center font-bold text-lg">
+          <div className="h-12 w-12 rounded-full bg-green-600 dark:bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-glow-green">
             {initials}
           </div>
           <div className="flex-1">
-            <p className="text-base font-bold text-google-grey-900 font-display">{t("hi")}, {displayName} 👋</p>
-            <p className="text-xs text-google-grey-600">{t("findTasksNearYou")}</p>
+            <p className="text-base font-bold text-foreground font-display">{t("hi")}, {displayName} 👋</p>
+            <p className="text-xs text-muted-foreground">{t("findTasksNearYou")}</p>
           </div>
           <Link href="/report"
-            className="flex items-center gap-1 px-3 py-1.5 bg-red-50 border border-red-200 rounded-full text-[10px] text-google-red font-medium hover:bg-red-100 transition-google">
+            className="flex items-center gap-1 px-3 py-1.5 bg-destructive/10 border border-destructive/20 rounded-lg text-[10px] text-destructive font-medium hover:bg-destructive/20 transition-google">
             <AlertTriangle className="h-3 w-3" />
             Report
           </Link>
           <div className="flex items-center gap-1">
-            <span className="h-2 w-2 bg-google-green rounded-full animate-pulse" />
-            <span className="text-[10px] text-google-green font-medium">{t("online")}</span>
+            <span className="h-2 w-2 bg-green-500 dark:bg-emerald-500 rounded-full animate-pulse" />
+            <span className="text-[10px] text-green-600 dark:text-emerald-400 font-medium">{t("online")}</span>
           </div>
         </div>
       </div>
@@ -169,13 +169,13 @@ export default function VolunteerDashboardPage() {
       <div className="px-4 py-3 max-w-lg mx-auto w-full">
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: t("tasksCompleted"), value: completedCount, color: "text-google-green", bg: "bg-green-50" },
-            { label: t("nearby"), value: nearbyNeeds.length, color: "text-google-blue", bg: "bg-blue-50" },
-            { label: t("myTasks"), value: tasks.length, color: "text-google-yellow", bg: "bg-yellow-50" },
-          ].map(({ label, value, color, bg }) => (
-            <div key={label} className={`${bg} rounded-xl py-3 text-center`}>
+            { label: t("tasksCompleted"), value: completedCount, color: "text-green-500 dark:text-emerald-400", bgClass: "stat-green" },
+            { label: t("nearby"), value: nearbyNeeds.length, color: "text-blue-500 dark:text-blue-400", bgClass: "stat-blue" },
+            { label: t("myTasks"), value: tasks.length, color: "text-amber-500 dark:text-amber-400", bgClass: "stat-amber" },
+          ].map(({ label, value, color, bgClass }) => (
+            <div key={label} className={`${bgClass} rounded-xl py-3 text-center border border-border`}>
               <p className={`text-xl font-bold ${color} animate-count-up`}>{value}</p>
-              <p className="text-[10px] text-google-grey-600">{label}</p>
+              <p className="text-[10px] text-muted-foreground">{label}</p>
             </div>
           ))}
         </div>
@@ -185,21 +185,21 @@ export default function VolunteerDashboardPage() {
       <div className="flex-1 px-4 max-w-lg mx-auto w-full">
         {activeTab === "tasks" && (
           <div className="space-y-3">
-            <h2 className="text-sm font-semibold text-google-grey-900">{t("myTasks")}</h2>
+            <h2 className="text-sm font-semibold text-foreground">{t("myTasks")}</h2>
             {loading ? (
-              <div className="text-center py-12"><Loader2 className="h-6 w-6 animate-spin text-google-blue mx-auto" /></div>
+              <div className="text-center py-12"><Loader2 className="h-6 w-6 animate-spin text-primary mx-auto" /></div>
             ) : tasks.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-xl border border-google-grey-200">
-                <ClipboardList className="h-8 w-8 text-google-grey-400 mx-auto mb-2" />
-                <p className="text-sm text-google-grey-600">{t("noTasksYet")}</p>
-                <p className="text-xs text-google-grey-500 mt-1">Check &quot;Nearby&quot; tab for available needs</p>
+              <div className="text-center py-12 glass-card rounded-xl">
+                <ClipboardList className="h-8 w-8 text-muted-foreground/40 mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">{t("noTasksYet")}</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">Check &quot;Nearby&quot; tab for available needs</p>
               </div>
             ) : (
               tasks.map((task, i) => (
                 <motion.div key={task.id}
                   initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}>
-                  <div className="bg-white rounded-xl border border-google-grey-200 shadow-md3-1 p-4"
+                  <div className="glass-card rounded-xl p-4"
                     style={{ borderLeftWidth: "4px", borderLeftColor: urgencyColor(task.urgency_score) }}>
                     <div className="flex items-start justify-between mb-2">
                       <div>
@@ -207,23 +207,23 @@ export default function VolunteerDashboardPage() {
                           style={{ background: `${urgencyColor(task.urgency_score)}15`, color: urgencyColor(task.urgency_score) }}>
                           {task.need_type}
                         </span>
-                        <p className="text-sm font-medium text-google-grey-900 mt-1">{task.location_name}</p>
+                        <p className="text-sm font-medium text-foreground mt-1">{task.location_name}</p>
                       </div>
-                      <div className="flex items-center gap-1 text-[10px] text-google-grey-500">
+                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                         <Clock className="h-3 w-3" />{timeAgo(task.created_at)}
                       </div>
                     </div>
-                    <p className="text-xs text-google-grey-600 line-clamp-2 mb-3">{task.description}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{task.description}</p>
                     <div className="flex gap-2">
                       {task.lat && task.lng && (
                         <a href={`https://www.google.com/maps/dir/?api=1&destination=${task.lat},${task.lng}`}
                           target="_blank" rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1 py-2 rounded-full border border-google-grey-300 text-xs font-medium text-google-grey-700 hover:bg-google-grey-50 transition-google">
+                          className="flex-1 flex items-center justify-center gap-1 py-2 rounded-lg border border-border text-xs font-medium text-foreground hover:bg-muted transition-google">
                           <Navigation className="h-3.5 w-3.5" />{t("navigate")}
                         </a>
                       )}
                       <button onClick={() => handleAction(task.id, "complete")} disabled={actionLoading === task.id}
-                        className="flex-1 flex items-center justify-center gap-1 py-2 rounded-full bg-google-green text-white text-xs font-medium hover:opacity-90 transition-google disabled:opacity-60">
+                        className="flex-1 flex items-center justify-center gap-1 py-2 rounded-lg bg-emerald-600 text-white text-xs font-medium hover:bg-emerald-500 transition-google disabled:opacity-60">
                         {actionLoading === task.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="h-3.5 w-3.5" />}
                         {t("markComplete")}
                       </button>
@@ -237,30 +237,30 @@ export default function VolunteerDashboardPage() {
 
         {activeTab === "nearby" && (
           <div className="space-y-3">
-            <h2 className="text-sm font-semibold text-google-grey-900">{t("nearby")}</h2>
+            <h2 className="text-sm font-semibold text-foreground">{t("nearby")}</h2>
             {nearbyNeeds.length === 0 ? (
-              <div className="text-center py-12 bg-white rounded-xl border border-google-grey-200">
-                <MapPin className="h-8 w-8 text-google-grey-400 mx-auto mb-2" />
-                <p className="text-sm text-google-grey-600">{t("noPendingNeeds")}</p>
+              <div className="text-center py-12 glass-card rounded-xl">
+                <MapPin className="h-8 w-8 text-muted-foreground/40 mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">{t("noPendingNeeds")}</p>
               </div>
             ) : (
               nearbyNeeds.map((need, i) => (
                 <motion.div key={need.id}
                   initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}>
-                  <div className="bg-white rounded-xl border border-google-grey-200 shadow-md3-1 p-4"
+                  <div className="glass-card rounded-xl p-4"
                     style={{ borderLeftWidth: "4px", borderLeftColor: urgencyColor(need.urgency_score) }}>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
                         style={{ background: `${urgencyColor(need.urgency_score)}15`, color: urgencyColor(need.urgency_score) }}>
                         {need.need_type}
                       </span>
-                      <span className="text-[10px] text-google-grey-500">{need.affected_count} people</span>
+                      <span className="text-[10px] text-muted-foreground">{need.affected_count} people</span>
                     </div>
-                    <p className="text-sm font-medium text-google-grey-900">{need.location_name}</p>
-                    <p className="text-xs text-google-grey-600 line-clamp-1 mt-0.5">{need.description}</p>
+                    <p className="text-sm font-medium text-foreground">{need.location_name}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{need.description}</p>
                     <button onClick={() => handleAction(need.id, "accept")} disabled={actionLoading === need.id}
-                      className="mt-3 w-full flex items-center justify-center gap-1 py-2 rounded-full bg-google-blue text-white text-xs font-medium hover:bg-google-blue-hover transition-google disabled:opacity-60">
+                      className="mt-3 w-full flex items-center justify-center gap-1 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-medium hover:opacity-90 transition-google disabled:opacity-60">
                       {actionLoading === need.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : null}
                       {t("acceptTask")}
                     </button>
@@ -273,22 +273,22 @@ export default function VolunteerDashboardPage() {
 
         {activeTab === "profile" && (
           <div className="space-y-4">
-            <div className="bg-white rounded-xl border border-google-grey-200 shadow-md3-1 p-6 text-center">
-              <div className="h-20 w-20 rounded-full bg-google-green text-white flex items-center justify-center font-bold text-2xl mx-auto mb-3">
+            <div className="glass-card rounded-xl p-6 text-center">
+              <div className="h-20 w-20 rounded-full bg-green-600 dark:bg-emerald-600 text-white flex items-center justify-center font-bold text-2xl mx-auto mb-3 shadow-glow-green">
                 {initials}
               </div>
-              <p className="text-lg font-bold text-google-grey-900">{displayName}</p>
-              <p className="text-xs text-google-grey-600 mt-0.5">{volunteer?.email || "Active Volunteer"}</p>
+              <p className="text-lg font-bold text-foreground">{displayName}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{volunteer?.email || "Active Volunteer"}</p>
               {volunteer?.skills && (
                 <div className="flex flex-wrap justify-center gap-1 mt-3">
                   {volunteer.skills.map((s) => (
-                    <span key={s} className="px-2 py-0.5 bg-blue-50 text-google-blue text-[10px] rounded-full font-medium">{s}</span>
+                    <span key={s} className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] rounded-full font-medium border border-primary/20">{s}</span>
                   ))}
                 </div>
               )}
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="bg-green-50 rounded-xl py-3"><p className="text-xl font-bold text-google-green">{completedCount}</p><p className="text-[10px] text-google-grey-600">Completed</p></div>
-                <div className="bg-blue-50 rounded-xl py-3"><p className="text-xl font-bold text-google-blue">{tasks.length}</p><p className="text-[10px] text-google-grey-600">Active</p></div>
+                <div className="stat-green rounded-xl py-3 border border-border"><p className="text-xl font-bold text-green-500 dark:text-emerald-400">{completedCount}</p><p className="text-[10px] text-muted-foreground">Completed</p></div>
+                <div className="stat-blue rounded-xl py-3 border border-border"><p className="text-xl font-bold text-blue-500 dark:text-blue-400">{tasks.length}</p><p className="text-[10px] text-muted-foreground">Active</p></div>
               </div>
             </div>
             <button onClick={() => {
@@ -297,7 +297,7 @@ export default function VolunteerDashboardPage() {
               auth.signOut().catch(() => {});
               fetch("/api/auth/logout", { method: "POST" }).then(() => window.location.href = "/");
             }}
-              className="w-full py-3 border border-google-red text-google-red rounded-full text-sm font-medium hover:bg-red-50 transition-google">
+              className="w-full py-3 border border-destructive/30 text-destructive rounded-xl text-sm font-medium hover:bg-destructive/10 transition-google">
               {t("signOut")}
             </button>
           </div>
@@ -305,14 +305,14 @@ export default function VolunteerDashboardPage() {
       </div>
 
       {/* Bottom Navigation — Mobile */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-google-grey-200 md:hidden z-40">
+      <nav className="fixed bottom-0 left-0 right-0 bg-card/90 backdrop-blur-xl border-t border-border md:hidden z-40">
         <div className="flex">
           {tabs.map(({ id, icon: Icon, label }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               className={`flex-1 flex flex-col items-center gap-0.5 py-2.5 text-[10px] font-medium transition-google ${
-                activeTab === id ? "text-google-blue" : "text-google-grey-500"
+                activeTab === id ? "text-primary" : "text-muted-foreground"
               }`}>
-              <Icon className={`h-5 w-5 ${activeTab === id ? "text-google-blue" : "text-google-grey-500"}`} />
+              <Icon className={`h-5 w-5 ${activeTab === id ? "text-primary" : "text-muted-foreground"}`} />
               {label}
             </button>
           ))}

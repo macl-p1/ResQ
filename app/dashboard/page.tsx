@@ -84,34 +84,34 @@ export default function DashboardPage() {
   const availableVols = volunteers.filter((v) => v.is_available).length;
 
   const stats = [
-    { label: t("totalNeeds"), value: needs.length, icon: AlertTriangle, color: "text-google-red", bg: "bg-red-50" },
-    { label: t("criticalNeeds"), value: criticalCount, icon: Clock, color: "text-google-yellow", bg: "bg-yellow-50" },
-    { label: t("volunteersAvailable"), value: availableVols, icon: Users, color: "text-google-blue", bg: "bg-blue-50" },
-    { label: t("tasksCompleted"), value: resolvedCount, icon: CheckCircle2, color: "text-google-green", bg: "bg-green-50" },
+    { label: t("totalNeeds"), value: needs.length, icon: AlertTriangle, color: "text-red-500 dark:text-red-400", bgClass: "stat-red" },
+    { label: t("criticalNeeds"), value: criticalCount, icon: Clock, color: "text-amber-500 dark:text-amber-400", bgClass: "stat-amber" },
+    { label: t("volunteersAvailable"), value: availableVols, icon: Users, color: "text-blue-500 dark:text-blue-400", bgClass: "stat-blue" },
+    { label: t("tasksCompleted"), value: resolvedCount, icon: CheckCircle2, color: "text-green-500 dark:text-emerald-400", bgClass: "stat-green" },
   ];
 
   return (
-    <div className="h-[calc(100vh-64px)] flex flex-col md:flex-row bg-[#F8F9FA]">
+    <div className="h-[calc(100vh-64px)] flex flex-col md:flex-row bg-background">
       {/* Left Panel */}
-      <div className="w-full md:w-[420px] flex flex-col border-r border-google-grey-200 bg-white">
+      <div className="w-full md:w-[420px] flex flex-col border-r border-border bg-card">
         {/* Stats */}
-        <div className="grid grid-cols-4 gap-2 p-4 border-b border-google-grey-200">
-          {stats.map(({ label, value, icon: Icon, color, bg }) => (
-            <div key={label} className={`${bg} rounded-xl p-2.5 text-center`}>
+        <div className="grid grid-cols-4 gap-2 p-4 border-b border-border">
+          {stats.map(({ label, value, icon: Icon, color, bgClass }) => (
+            <div key={label} className={`${bgClass} rounded-xl p-2.5 text-center border border-border`}>
               <Icon className={`h-4 w-4 mx-auto mb-1 ${color}`} />
               <p className={`text-lg font-bold ${color} animate-count-up`}>{value}</p>
-              <p className="text-[9px] text-google-grey-600 leading-tight">{label}</p>
+              <p className="text-[9px] text-muted-foreground leading-tight">{label}</p>
             </div>
           ))}
         </div>
 
         {/* Feed Header */}
-        <div className="px-4 py-3 flex items-center justify-between border-b border-google-grey-100">
+        <div className="px-4 py-3 flex items-center justify-between border-b border-border">
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 bg-google-red rounded-full animate-pulse" />
-            <h2 className="text-sm font-semibold text-google-grey-900">{t("liveCrisisFeed")}</h2>
+            <span className="h-2 w-2 bg-red-500 rounded-full animate-pulse" />
+            <h2 className="text-sm font-semibold text-foreground">{t("liveCrisisFeed")}</h2>
           </div>
-          <span className="text-[10px] text-google-grey-500">{needs.length} {t("needs").toLowerCase()}</span>
+          <span className="text-[10px] text-muted-foreground">{needs.length} {t("needs").toLowerCase()}</span>
         </div>
 
         {/* Need Cards */}
@@ -132,19 +132,20 @@ export default function DashboardPage() {
                   onFindVolunteer={setMatchNeed}
                   isAdmin={true}
                   onDeleted={fetchNeeds}
+                  volunteers={volunteers}
                 />
               </motion.div>
             ))}
           </AnimatePresence>
           {needs.length === 0 && (
-            <div className="text-center py-16 text-google-grey-500 text-sm">No needs reported yet</div>
+            <div className="text-center py-16 text-muted-foreground text-sm">No needs reported yet</div>
           )}
         </div>
 
         {/* Report Button / Form */}
-        <div className="border-t border-google-grey-200 p-3">
+        <div className="border-t border-border p-3">
           {showIngest ? (
-            <div className="bg-google-grey-50 rounded-xl border border-google-grey-200 p-4 max-h-[70vh] overflow-y-auto custom-scrollbar">
+            <div className="bg-muted rounded-xl border border-border p-4 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <IngestForm onIngested={() => { fetchNeeds(); setShowIngest(false); }} onClose={() => setShowIngest(false)} />
             </div>
           ) : (

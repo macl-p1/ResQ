@@ -47,38 +47,14 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Google brand colors for direct use
-        google: {
-          blue: "#1A73E8",
-          "blue-light": "#4285F4",
-          "blue-hover": "#1765CC",
-          red: "#D93025",
-          "red-light": "#EA4335",
-          green: "#188038",
-          "green-light": "#34A853",
-          yellow: "#F29900",
-          "yellow-light": "#FBBC04",
-          grey: {
-            50: "#F8F9FA",
-            100: "#F1F3F4",
-            200: "#E8EAED",
-            300: "#DADCE0",
-            400: "#BDC1C6",
-            500: "#9AA0A6",
-            600: "#80868B",
-            700: "#5F6368",
-            800: "#3C4043",
-            900: "#202124",
-          },
-        },
       },
       borderRadius: {
-        lg: "var(--radius)",          // 12px — cards
-        md: "calc(var(--radius) - 4px)", // 8px — inputs
-        sm: "calc(var(--radius) - 6px)", // 6px — small elements
-        xl: "var(--radius-button)",    // 24px — buttons, pills
-        "2xl": "1.5rem",
-        "3xl": "2rem",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 6px)",
+        xl: "var(--radius-button)",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
       },
       boxShadow: {
         "md3-1": "0 1px 2px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.12)",
@@ -86,9 +62,9 @@ const config: Config = {
         "md3-3": "0 4px 8px rgba(0,0,0,0.08), 0 6px 12px rgba(0,0,0,0.12)",
         "md3-4": "0 8px 16px rgba(0,0,0,0.08), 0 12px 24px rgba(0,0,0,0.12)",
         "md3-hover": "0 4px 8px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.14)",
-        "google-blue": "0 2px 8px rgba(26, 115, 232, 0.25)",
-        "google-red": "0 2px 8px rgba(217, 48, 37, 0.25)",
-        "google-green": "0 2px 8px rgba(24, 128, 56, 0.25)",
+        "glow-blue": "0 0 20px rgba(59, 130, 246, 0.25)",
+        "glow-red": "0 0 20px rgba(239, 68, 68, 0.25)",
+        "glow-green": "0 0 20px rgba(34, 197, 94, 0.25)",
       },
       transitionTimingFunction: {
         google: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -97,35 +73,13 @@ const config: Config = {
         google: "200ms",
       },
       keyframes: {
-        "fade-in-up": {
-          from: { opacity: "0", transform: "translateY(12px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
-        },
-        "fade-in": {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
-        },
-        "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 0 0 rgba(26, 115, 232, 0.4)" },
-          "50%": { boxShadow: "0 0 0 12px rgba(26, 115, 232, 0)" },
-        },
-        "count-up": {
-          from: { opacity: "0", transform: "translateY(8px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
-        },
-        "gradient-shift": {
-          "0%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-          "100%": { backgroundPosition: "0% 50%" },
-        },
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
+        "fade-in-up": { from: { opacity: "0", transform: "translateY(12px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+        "pulse-glow": { "0%, 100%": { boxShadow: "0 0 0 0 rgba(59, 130, 246, 0.4)" }, "50%": { boxShadow: "0 0 0 12px rgba(59, 130, 246, 0)" } },
+        "count-up": { from: { opacity: "0", transform: "translateY(8px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+        "gradient-shift": { "0%": { backgroundPosition: "0% 50%" }, "50%": { backgroundPosition: "100% 50%" }, "100%": { backgroundPosition: "0% 50%" } },
+        "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
+        "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
       },
       animation: {
         "fade-in-up": "fade-in-up 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards",

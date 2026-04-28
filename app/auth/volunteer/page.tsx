@@ -240,22 +240,25 @@ function VolunteerAuthContent() {
   };
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA] px-4 py-10">
+      <div className="min-h-screen flex items-center justify-center bg-background px-4 py-10">
+        {/* Radial glow */}
+        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-green-500/5 dark:bg-emerald-500/5 rounded-full blur-3xl -z-10" />
+        
         <div className="relative w-full max-w-md">
           <div className="text-center mb-8">
             <div className="mx-auto mb-4">
               <ResQLogo size="lg" />
             </div>
-            <h1 className="text-2xl font-bold text-google-grey-900 font-display">ResQ Volunteer</h1>
-            <p className="text-google-grey-600 text-sm mt-1">Join the network. Make a difference.</p>
+            <h1 className="text-2xl font-bold text-foreground font-display">ResQ Volunteer</h1>
+            <p className="text-muted-foreground text-sm mt-1">Join the network. Make a difference.</p>
           </div>
 
-        <div className="bg-white border border-google-grey-200 rounded-2xl overflow-hidden shadow-md3-2">
+        <div className="glass-card rounded-2xl overflow-hidden">
           {/* Tabs */}
-          <div className="flex border-b border-google-grey-200">
+          <div className="flex border-b border-border">
             {(["register", "login"] as AuthTab[]).map((t) => (
               <button key={t} onClick={() => setTab(t)}
-                className={`flex-1 py-3.5 text-sm font-medium transition-all ${tab === t ? "bg-white text-google-blue border-b-2 border-google-blue" : "text-google-grey-500 hover:text-google-grey-700"}`}>
+                className={`flex-1 py-3.5 text-sm font-medium transition-all ${tab === t ? "bg-muted text-primary border-b-2 border-primary" : "text-muted-foreground hover:text-foreground"}`}>
                 {t === "register" ? "Register" : "Login"}
               </button>
             ))}
@@ -263,7 +266,7 @@ function VolunteerAuthContent() {
 
           <div className="p-8">
             {isDemoMode && (
-              <div className="mb-5 p-3 rounded-lg bg-yellow-50 border border-yellow-200 text-google-yellow text-xs text-center">
+              <div className="mb-5 p-3 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 text-amber-700 dark:text-amber-400 text-xs text-center">
                 ⚡ Demo mode — any email/password works
               </div>
             )}
@@ -271,45 +274,45 @@ function VolunteerAuthContent() {
             {tab === "register" ? (
               <form onSubmit={handleRegister} className="space-y-4">
                 <div className="space-y-1.5">
-                  <Label className="text-google-grey-700 text-xs">Full Name</Label>
-                  <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Priya Sharma" required className="border-google-grey-300 text-google-grey-900 placeholder:text-google-grey-400 focus:border-google-blue h-10" />
+                  <Label className="text-muted-foreground text-xs">Full Name</Label>
+                  <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Priya Sharma" required className="bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-10" />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-google-grey-700 text-xs">Email</Label>
-                  <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="border-google-grey-300 text-google-grey-900 placeholder:text-google-grey-400 focus:border-google-blue h-10" />
+                  <Label className="text-muted-foreground text-xs">Email</Label>
+                  <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-10" />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-google-grey-700 text-xs">Phone</Label>
-                  <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 98765 43210" required className="border-google-grey-300 text-google-grey-900 placeholder:text-google-grey-400 focus:border-google-blue h-10" />
+                  <Label className="text-muted-foreground text-xs">Phone</Label>
+                  <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 98765 43210" required className="bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-10" />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-google-grey-700 text-xs">Password</Label>
+                  <Label className="text-muted-foreground text-xs">Password</Label>
                   <div className="relative">
-                    <Input type={showPw ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 6 characters" required minLength={6} className="border-google-grey-300 text-google-grey-900 placeholder:text-google-grey-400 focus:border-google-blue h-10 pr-10" />
-                    <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-google-grey-400 hover:text-google-grey-700">
+                    <Input type={showPw ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 6 characters" required minLength={6} className="bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-10 pr-10" />
+                    <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                       {showPw ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-google-grey-700 text-xs">Skills</Label>
+                  <Label className="text-muted-foreground text-xs">Skills</Label>
                   <div className="grid grid-cols-2 gap-2">
                     {SKILL_OPTIONS.map((s) => (
-                      <label key={s} className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all ${skills.includes(s) ? "bg-blue-50 border-google-blue/30 text-google-blue" : "bg-white border-google-grey-200 text-google-grey-600 hover:border-google-grey-300"}`}>
-                        <Checkbox checked={skills.includes(s)} onCheckedChange={() => toggleSkill(s)} className="border-google-grey-300 data-[state=checked]:bg-google-blue data-[state=checked]:border-google-blue" />
+                      <label key={s} className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all ${skills.includes(s) ? "bg-primary/10 border-primary/30 text-primary" : "bg-card border-border text-muted-foreground hover:border-muted-foreground/30"}`}>
+                        <Checkbox checked={skills.includes(s)} onCheckedChange={() => toggleSkill(s)} className="border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary" />
                         <span className="text-xs">{s}</span>
                       </label>
                     ))}
                   </div>
                 </div>
-                <div style={{border:'1px solid #E8EAED', borderRadius:12, padding:20, margin:'16px 0'}}>
-                  <h3 style={{color:'#3C4043', marginBottom:16, fontSize:16, fontWeight:500}}>
+                <div className="rounded-xl border border-border bg-muted/50 p-5 my-4">
+                  <h3 className="text-foreground mb-4 text-sm font-medium">
                     📍 Your Location
                   </h3>
 
                   {/* City input */}
-                  <div style={{marginBottom:16}}>
-                    <label style={{display:'block', color:'#5F6368', fontSize:13, marginBottom:6, fontWeight:500}}>
+                  <div className="mb-4">
+                    <label className="block text-muted-foreground text-xs mb-1.5 font-medium">
                       City / Town / Village *
                     </label>
                     <input
@@ -317,7 +320,6 @@ function VolunteerAuthContent() {
                       value={cityInput}
                       onChange={(e) => {
                         setCityInput(e.target.value)
-                        // Auto-lookup coordinates as user types
                         const coords = getCoordsFromCity(e.target.value)
                         if (coords) {
                           setLat(coords.lat)
@@ -326,43 +328,20 @@ function VolunteerAuthContent() {
                       }}
                       placeholder="e.g. Mumbai, Patna, Coimbatore..."
                       required
-                      style={{
-                        width:'100%',
-                        padding:'12px 16px',
-                        border:'1px solid #E8EAED',
-                        borderRadius:8,
-                        fontSize:16,
-                        outline:'none',
-                        boxSizing:'border-box',
-                        transition:'border-color 0.2s'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor='#1A73E8'}
-                      onBlur={(e) => e.target.style.borderColor='#E8EAED'}
+                      className="w-full px-4 py-3 bg-card border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary transition-colors"
                     />
                   </div>
 
                   {/* State dropdown */}
-                  <div style={{marginBottom:16}}>
-                    <label style={{display:'block', color:'#5F6368', fontSize:13, marginBottom:6, fontWeight:500}}>
+                  <div className="mb-4">
+                    <label className="block text-muted-foreground text-xs mb-1.5 font-medium">
                       State *
                     </label>
                     <select
                       value={selectedState}
                       onChange={(e) => setSelectedState(e.target.value)}
                       required
-                      style={{
-                        width:'100%',
-                        padding:'12px 16px',
-                        border:'1px solid #E8EAED',
-                        borderRadius:8,
-                        fontSize:16,
-                        background:'white',
-                        cursor:'pointer',
-                        outline:'none',
-                        boxSizing:'border-box'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor='#1A73E8'}
-                      onBlur={(e) => e.target.style.borderColor='#E8EAED'}
+                      className="w-full px-4 py-3 bg-card border border-border rounded-lg text-sm text-foreground cursor-pointer outline-none focus:border-primary transition-colors"
                     >
                       <option value=''>-- Select your state --</option>
                       {indianStates.map(state => (
@@ -372,8 +351,8 @@ function VolunteerAuthContent() {
                   </div>
 
                   {/* Pincode */}
-                  <div style={{marginBottom:16}}>
-                    <label style={{display:'block', color:'#5F6368', fontSize:13, marginBottom:6, fontWeight:500}}>
+                  <div className="mb-4">
+                    <label className="block text-muted-foreground text-xs mb-1.5 font-medium">
                       PIN Code *
                     </label>
                     <input
@@ -382,7 +361,6 @@ function VolunteerAuthContent() {
                       onChange={(e) => {
                         const val = e.target.value.replace(/\D/g, '').slice(0, 6)
                         setPincode(val)
-                        // Fetch coordinates from pincode using internal proxy API
                         if (val.length === 6) {
                           fetch(`/api/geocode?address=${val}`, { cache: 'no-store' })
                             .then(r => r.json())
@@ -404,33 +382,23 @@ function VolunteerAuthContent() {
                       }}
                       placeholder="e.g. 400001"
                       maxLength={6}
-                      style={{
-                        width:'100%',
-                        padding:'12px 16px',
-                        border:'1px solid #E8EAED',
-                        borderRadius:8,
-                        fontSize:16,
-                        outline:'none',
-                        boxSizing:'border-box'
-                      }}
-                      onFocus={(e) => e.target.style.borderColor='#1A73E8'}
-                      onBlur={(e) => e.target.style.borderColor='#E8EAED'}
+                      className="w-full px-4 py-3 bg-card border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground outline-none focus:border-primary transition-colors"
                     />
-                    <p style={{margin:'4px 0 0', color:'#9AA0A6', fontSize:12}}>
+                    <p className="mt-1 text-muted-foreground/60 text-[11px]">
                       Enter your 6-digit PIN code for precise location
                     </p>
                   </div>
 
                   {/* Location confirmation box */}
                   {lat && lng && (
-                    <div style={{background:'#E6F4EA', borderRadius:8, padding:12, display:'flex', alignItems:'flex-start', gap:10}}>
-                      <span style={{fontSize:20}}>✅</span>
+                    <div className="bg-green-50 dark:bg-emerald-950/30 border border-green-200 dark:border-emerald-900/50 rounded-lg p-3 flex items-start gap-2.5">
+                      <span className="text-lg">✅</span>
                       <div>
-                        <p style={{margin:0, color:'#188038', fontWeight:500, fontSize:14}}>Location confirmed</p>
-                        <p style={{margin:'4px 0 0', color:'#5F6368', fontSize:13}}>
+                        <p className="text-green-700 dark:text-emerald-400 font-medium text-sm">Location confirmed</p>
+                        <p className="text-muted-foreground text-xs mt-0.5">
                           {cityInput}{selectedState ? `, ${selectedState}` : ''}{pincode ? ` — ${pincode}` : ''}
                         </p>
-                        <p style={{margin:'2px 0 0', color:'#9AA0A6', fontSize:11}}>
+                        <p className="text-muted-foreground/60 text-[11px] mt-0.5">
                           Coordinates: {lat.toFixed(4)}, {lng.toFixed(4)}
                         </p>
                       </div>
@@ -439,9 +407,9 @@ function VolunteerAuthContent() {
 
                   {/* Helper text when no location yet */}
                   {!lat && !lng && (
-                    <div style={{background:'#FFF3E0', borderRadius:8, padding:12, display:'flex', alignItems:'center', gap:8}}>
+                    <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 rounded-lg p-3 flex items-center gap-2">
                       <span>ℹ️</span>
-                      <p style={{margin:0, color:'#E65100', fontSize:13}}>
+                      <p className="text-amber-700 dark:text-amber-400 text-xs">
                         Enter your city name or PIN code above to set your location.
                         This helps coordinators assign you to nearby tasks.
                       </p>
@@ -449,11 +417,11 @@ function VolunteerAuthContent() {
                   )}
                 </div>
 
-                {error && <p className="text-xs text-google-red">{error}</p>}
+                {error && <p className="text-xs text-destructive">{error}</p>}
                 {((!lat || !lng) && tab === "register") && (
-                  <p className="text-xs text-google-red text-center font-medium">Please enter your city, state and PIN code to continue</p>
+                  <p className="text-xs text-destructive text-center font-medium">Please enter your city, state and PIN code to continue</p>
                 )}
-                <Button type="submit" disabled={loading || !lat || !lng} className="w-full h-10 bg-google-blue hover:bg-google-blue-hover text-white border-0 rounded-full disabled:opacity-50">
+                <Button type="submit" disabled={loading || !lat || !lng} className="w-full h-10 bg-primary hover:bg-primary/90 text-primary-foreground border-0 rounded-lg disabled:opacity-50">
                   {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <UserPlus className="h-4 w-4 mr-2" />}
                   {loading ? "Registering…" : "Register"}
                 </Button>
@@ -461,27 +429,27 @@ function VolunteerAuthContent() {
             ) : (
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-1.5">
-                  <Label className="text-google-grey-700 text-xs">Email</Label>
-                  <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="border-google-grey-300 text-google-grey-900 placeholder:text-google-grey-400 focus:border-google-blue h-10" />
+                  <Label className="text-muted-foreground text-xs">Email</Label>
+                  <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-10" />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-google-grey-700 text-xs">Password</Label>
+                  <Label className="text-muted-foreground text-xs">Password</Label>
                   <div className="relative">
-                    <Input type={showPw ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required className="border-google-grey-300 text-google-grey-900 placeholder:text-google-grey-400 focus:border-google-blue h-10 pr-10" />
-                    <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-google-grey-400 hover:text-google-grey-700">
+                    <Input type={showPw ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required className="bg-card border-border text-foreground placeholder:text-muted-foreground focus:border-primary h-10 pr-10" />
+                    <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                       {showPw ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
-                {error && <p className="text-xs text-google-red">{error}</p>}
-                <Button type="submit" disabled={loading} className="w-full h-10 bg-google-blue hover:bg-google-blue-hover text-white border-0 rounded-full">
+                {error && <p className="text-xs text-destructive">{error}</p>}
+                <Button type="submit" disabled={loading} className="w-full h-10 bg-primary hover:bg-primary/90 text-primary-foreground border-0 rounded-lg">
                   {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <LogIn className="h-4 w-4 mr-2" />}
                   {loading ? "Signing in…" : "Sign In"}
                 </Button>
                 <div className="relative flex items-center gap-3 my-1">
-                  <div className="flex-1 h-px bg-google-grey-200" /><span className="text-xs text-google-grey-500">or</span><div className="flex-1 h-px bg-google-grey-200" />
+                  <div className="flex-1 h-px bg-border" /><span className="text-xs text-muted-foreground">or</span><div className="flex-1 h-px bg-border" />
                 </div>
-                <Button type="button" onClick={handleGoogle} disabled={loading || isDemoMode} variant="outline" className="w-full h-10 border-google-grey-300 text-google-grey-700 hover:bg-google-grey-50 rounded-full">
+                <Button type="button" onClick={handleGoogle} disabled={loading || isDemoMode} variant="outline" className="w-full h-10 border-border bg-card text-foreground hover:bg-muted rounded-lg">
                   <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" /><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" /><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" /><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" /></svg>
                   Continue with Google
                 </Button>

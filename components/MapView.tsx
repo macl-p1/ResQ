@@ -95,18 +95,18 @@ export default function MapView({ needs, selectedNeed, onSelectNeed }: MapViewPr
   if (!apiKey) {
     // Fallback map placeholder for demo mode
     return (
-      <div className="w-full h-full rounded-xl overflow-hidden border border-white/10 bg-slate-900 flex flex-col items-center justify-center gap-4">
-        <div className="text-slate-400 text-sm">🗺️ Google Maps API key not configured</div>
+      <div className="w-full h-full rounded-xl overflow-hidden border border-border bg-muted flex flex-col items-center justify-center gap-4">
+        <div className="text-muted-foreground text-sm">🗺️ Google Maps API key not configured</div>
         <div className="grid grid-cols-3 gap-3 px-6">
           {needs.filter((n) => n.lat && n.lng).map((need) => (
             <button key={need.id} onClick={() => onSelectNeed(need)}
-              className={`text-left p-3 rounded-lg border transition-all ${selectedNeed?.id === need.id ? "border-blue-500 bg-blue-500/10" : "border-white/10 bg-white/5 hover:bg-white/10"}`}>
+              className={`text-left p-3 rounded-lg border transition-all ${selectedNeed?.id === need.id ? "border-primary bg-primary/10" : "border-border bg-card hover:bg-muted"}`}>
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-2 h-2 rounded-full" style={{ background: urgencyColor(need.urgency_score) }} />
-                <span className="text-xs font-medium text-white">{need.need_type}</span>
+                <span className="text-xs font-medium text-foreground">{need.need_type}</span>
               </div>
-              <p className="text-[11px] text-slate-400 truncate">{need.location_name}</p>
-              <p className="text-[10px] text-slate-500">{need.affected_count} affected</p>
+              <p className="text-[11px] text-muted-foreground truncate">{need.location_name}</p>
+              <p className="text-[10px] text-muted-foreground">{need.affected_count} affected</p>
             </button>
           ))}
         </div>
@@ -134,22 +134,22 @@ export default function MapView({ needs, selectedNeed, onSelectNeed }: MapViewPr
       </APIProvider>
 
       {/* Legend */}
-      <div className="absolute top-4 left-4 z-10 bg-slate-900/90 backdrop-blur-sm border border-white/10 rounded-lg p-3">
-        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Urgency Level</p>
+      <div className="absolute top-4 left-4 z-10 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-3">
+        <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider mb-2">Urgency Level</p>
         {legend.map((l) => (
           <div key={l.label} className="flex items-center gap-2 mb-1">
             <div className="w-3 h-3 rounded-full" style={{ background: l.color }} />
-            <span className="text-[11px] text-slate-300">{l.label}</span>
+            <span className="text-[11px] text-foreground">{l.label}</span>
           </div>
         ))}
       </div>
 
       {/* Toggle button */}
       <div className="absolute top-4 right-4 z-10">
-        <div className="flex bg-slate-900/90 backdrop-blur-sm border border-white/10 rounded-lg overflow-hidden">
+        <div className="flex bg-card/90 backdrop-blur-sm border border-border rounded-lg overflow-hidden">
           {(["cluster", "heatmap"] as const).map((mode) => (
             <button key={mode} onClick={() => setViewMode(mode)}
-              className={`px-3 py-1.5 text-xs font-medium transition-all ${viewMode === mode ? "bg-blue-600 text-white" : "text-slate-400 hover:text-white"}`}>
+              className={`px-3 py-1.5 text-xs font-medium transition-all ${viewMode === mode ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
               {mode === "cluster" ? "📍 Cluster" : "🔥 Heatmap"}
             </button>
           ))}

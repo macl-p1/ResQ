@@ -38,9 +38,9 @@ export default function StatusTracker({ assignment, onStatusUpdate }: StatusTrac
   };
 
   return (
-    <div className="rounded-lg bg-slate-800/50 border border-white/10 p-4 space-y-4">
+    <div className="rounded-lg bg-muted border border-border p-4 space-y-4">
       <div className="flex items-center gap-2 mb-1">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Assignment Progress</span>
+        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Assignment Progress</span>
       </div>
 
       <div className="flex items-center gap-2">
@@ -49,12 +49,12 @@ export default function StatusTracker({ assignment, onStatusUpdate }: StatusTrac
           const StepIcon = step.icon;
           return (
             <div key={step.key} className="flex items-center gap-2">
-              <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${isActive ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-slate-700/50 text-slate-500 border border-white/5"}`}>
+              <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${isActive ? "bg-green-50 dark:bg-emerald-500/20 text-green-700 dark:text-emerald-400 border border-green-300 dark:border-emerald-500/30" : "bg-muted text-muted-foreground border border-border"}`}>
                 <StepIcon className="h-3 w-3" />
                 {step.label}
               </div>
               {idx < steps.length - 1 && (
-                <div className={`h-0.5 w-6 rounded ${idx < currentIdx ? "bg-emerald-500" : "bg-slate-700"}`} />
+                <div className={`h-0.5 w-6 rounded ${idx < currentIdx ? "bg-green-500 dark:bg-emerald-500" : "bg-border"}`} />
               )}
             </div>
           );
@@ -62,7 +62,7 @@ export default function StatusTracker({ assignment, onStatusUpdate }: StatusTrac
       </div>
 
       {assignment.completed_at && (
-        <p className="text-xs text-slate-500">Completed: {new Date(assignment.completed_at).toLocaleString()}</p>
+        <p className="text-xs text-muted-foreground">Completed: {new Date(assignment.completed_at).toLocaleString()}</p>
       )}
 
       <div className="flex gap-2">
@@ -79,7 +79,7 @@ export default function StatusTracker({ assignment, onStatusUpdate }: StatusTrac
           </Button>
         )}
         {assignment.status === "completed" && (
-          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+          <Badge className="bg-green-100 dark:bg-emerald-500/20 text-green-700 dark:text-emerald-400 border-green-300 dark:border-emerald-500/30">
             <CheckCircle2 className="h-3 w-3 mr-1" />Resolved
           </Badge>
         )}

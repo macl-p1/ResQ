@@ -46,6 +46,18 @@ const t_en: Record<string, string> = {
   realTimeOverview: "Real-time overview of ResQ operations",
   avgResponse: "Avg Response", totalAssignments: "Total Assignments",
   needsByType: "Needs by Type", statusBreakdown: "Status Breakdown",
+  aiPowered: "AI-powered crisis response.",
+  builtOnCloud: "Built on Google Cloud.",
+  heroDescription: "When disasters strike, every second counts. ResQ uses Gemini AI and real-time data to connect volunteers to critical needs — instantly.",
+  coordinatorDesc: "Manage crises, coordinate volunteers, track impact",
+  volunteerDesc: "Find tasks near you, make a real difference",
+  adminLogin: "Admin Login",
+  joinLogin: "Join / Login",
+  reportEmergency: "Report an Emergency",
+  noLoginRequired: "No login required — your report is anonymous",
+  coordinatorLogin: "Coordinator Login",
+  signInAccess: "Sign in to access the crisis dashboard",
+  volunteerDashboard: "Volunteer Dashboard",
 };
 
 const t_hi: Record<string, string> = {
@@ -92,6 +104,18 @@ const t_hi: Record<string, string> = {
   realTimeOverview: "ResQ संचालन का वास्तविक समय अवलोकन",
   avgResponse: "औसत प्रतिक्रिया", totalAssignments: "कुल कार्य",
   needsByType: "प्रकार के अनुसार ज़रूरतें", statusBreakdown: "स्थिति विश्लेषण",
+  aiPowered: "AI-संचालित संकट प्रतिक्रिया।",
+  builtOnCloud: "Google Cloud पर निर्मित।",
+  heroDescription: "जब आपदाएं आती हैं, हर सेकंड मायने रखता है। ResQ स्वयंसेवकों को ज़रूरतों से जोड़ने के लिए Gemini AI का उपयोग करता है।",
+  coordinatorDesc: "संकट प्रबंधन, स्वयंसेवकों का समन्वय, प्रभाव ट्रैक करें",
+  volunteerDesc: "अपने पास कार्य खोजें, वास्तविक बदलाव लाएं",
+  adminLogin: "एडमिन लॉगिन",
+  joinLogin: "ज्वाइन / लॉगिन",
+  reportEmergency: "आपातकाल की रिपोर्ट करें",
+  noLoginRequired: "लॉगिन आवश्यक नहीं — आपकी रिपोर्ट गुमनाम है",
+  coordinatorLogin: "समन्वयक लॉगिन",
+  signInAccess: "संकट डैशबोर्ड तक पहुँचने के लिए साइन इन करें",
+  volunteerDashboard: "स्वयंसेवक डैशबोर्ड",
 };
 
 const t_ta: Record<string, string> = {

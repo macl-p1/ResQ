@@ -91,26 +91,26 @@ export default function PublicReportPage() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
-          <div className="bg-white rounded-2xl shadow-md3-2 border border-google-grey-200 p-8">
-            <div className="h-16 w-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
-              <CheckCircle2 className="h-8 w-8 text-google-green" />
+          <div className="glass-card rounded-2xl p-8">
+            <div className="h-16 w-16 rounded-full bg-green-50 dark:bg-emerald-950/50 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="h-8 w-8 text-green-600 dark:text-emerald-400" />
             </div>
-            <h1 className="text-xl font-bold text-google-grey-900 font-display mb-2">Thank you!</h1>
-            <p className="text-sm text-google-grey-600 mb-4">
+            <h1 className="text-xl font-bold text-foreground font-display mb-2">Thank you!</h1>
+            <p className="text-sm text-muted-foreground mb-4">
               Your report has been received and logged. A coordinator will review it shortly.
             </p>
-            <div className="bg-google-grey-50 rounded-xl px-4 py-3 mb-6">
-              <p className="text-[10px] text-google-grey-500 uppercase tracking-wide">Reference ID</p>
-              <p className="text-lg font-bold text-google-blue font-mono">{refId}</p>
+            <div className="bg-muted rounded-xl px-4 py-3 mb-6 border border-border">
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wide">Reference ID</p>
+              <p className="text-lg font-bold text-primary font-mono">{refId}</p>
             </div>
             <div className="flex gap-3">
               <button onClick={() => { setSubmitted(false); setText(""); setRefId(""); }}
-                className="flex-1 py-3 border border-google-grey-300 rounded-full text-sm font-medium text-google-grey-700 hover:bg-google-grey-50 transition-google">
+                className="flex-1 py-3 border border-border rounded-xl text-sm font-medium text-foreground hover:bg-muted transition-google">
                 Report Another
               </button>
-              <Link href="/" className="flex-1 py-3 bg-google-blue text-white rounded-full text-sm font-medium text-center hover:bg-google-blue-hover transition-google">
+              <Link href="/" className="flex-1 py-3 bg-primary text-primary-foreground rounded-xl text-sm font-medium text-center hover:opacity-90 transition-google">
                 Back Home
               </Link>
             </div>
@@ -122,37 +122,37 @@ export default function PublicReportPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#F8F9FA] px-4 py-8">
+      <div className="min-h-screen bg-background px-4 py-8">
         <div className="max-w-lg mx-auto">
           {/* Back + Logo */}
           <div className="flex items-center gap-3 mb-6">
-            <Link href="/" className="h-9 w-9 rounded-full border border-google-grey-200 flex items-center justify-center hover:bg-white transition-google">
-              <ArrowLeft className="h-4 w-4 text-google-grey-600" />
+            <Link href="/" className="h-9 w-9 rounded-lg border border-border flex items-center justify-center hover:bg-muted transition-google">
+              <ArrowLeft className="h-4 w-4 text-muted-foreground" />
             </Link>
             <ResQLogo size="sm" />
           </div>
 
           {/* Header */}
-          <div className="bg-white rounded-2xl shadow-md3-2 border border-google-grey-200 p-6 mb-4">
+          <div className="glass-card rounded-2xl p-6 mb-4">
             <div className="flex items-center gap-3 mb-1">
-              <div className="h-10 w-10 rounded-xl bg-google-red flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-[var(--brand-red)] flex items-center justify-center shadow-glow-red">
                 <Sparkles className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-google-grey-900 font-display">Report an Emergency</h1>
-                <p className="text-xs text-google-grey-600">No login required — your report is anonymous</p>
+                <h1 className="text-lg font-bold text-foreground font-display">Report an Emergency</h1>
+                <p className="text-xs text-muted-foreground">No login required — your report is anonymous</p>
               </div>
             </div>
           </div>
 
           {/* Form Card */}
-          <div className="bg-white rounded-2xl shadow-md3-1 border border-google-grey-200 p-6">
+          <div className="glass-card rounded-2xl p-6">
             {/* Tabs */}
-            <div className="flex bg-google-grey-100 rounded-xl p-1 gap-1 mb-4">
+            <div className="flex bg-muted rounded-xl p-1 gap-1 mb-4 border border-border">
               {tabs.map(({ id, label, icon: Icon }) => (
                 <button key={id} onClick={() => setTab(id)}
                   className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-medium transition-google ${
-                    tab === id ? "bg-white text-google-blue shadow-md3-1" : "text-google-grey-600 hover:text-google-grey-800"
+                    tab === id ? "bg-card text-primary shadow-md3-1" : "text-muted-foreground hover:text-foreground"
                   }`}>
                   <Icon className="h-3.5 w-3.5" />
                   {label}
@@ -167,7 +167,7 @@ export default function PublicReportPage() {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Describe the emergency… e.g. 'Flooding in Andheri East, 200 families stranded, need food and medical supplies urgently'"
-                  className="w-full border border-google-grey-300 rounded-xl px-4 py-3 text-sm text-google-grey-900 placeholder:text-google-grey-400 resize-none min-h-[120px] focus:border-google-blue focus:ring-1 focus:ring-google-blue outline-none transition-google"
+                  className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground resize-none min-h-[120px] focus:border-primary focus:ring-1 focus:ring-primary/20 outline-none transition-google"
                 />
                 <button onClick={handleAnalyze} disabled={loading || !text.trim()}
                   className="w-full btn-google-primary disabled:opacity-50">
@@ -186,12 +186,12 @@ export default function PublicReportPage() {
             )}
 
             {error && (
-              <div className="mt-3 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-google-red">{error}</div>
+              <div className="mt-3 p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-sm text-destructive">{error}</div>
             )}
           </div>
 
           {/* Info */}
-          <p className="text-center text-[10px] text-google-grey-500 mt-4">
+          <p className="text-center text-[10px] text-muted-foreground/60 mt-4">
             Your report will be reviewed by a coordinator. Gemini AI extracts key details automatically.
           </p>
         </div>
