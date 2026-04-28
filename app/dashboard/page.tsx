@@ -83,6 +83,9 @@ export default function DashboardPage() {
   const resolvedCount = needs.filter((n) => n.status === "resolved").length;
   const availableVols = volunteers.filter((v) => v.is_available).length;
 
+  // Active needs = everything except resolved (for the feed & map)
+  const activeNeeds = useMemo(() => needs.filter((n) => n.status !== "resolved"), [needs]);
+
   const stats = [
     { label: t("totalNeeds"), value: needs.length, icon: AlertTriangle, color: "text-red-500 dark:text-red-400", bgClass: "stat-red" },
     { label: t("criticalNeeds"), value: criticalCount, icon: Clock, color: "text-amber-500 dark:text-amber-400", bgClass: "stat-amber" },
@@ -111,13 +114,13 @@ export default function DashboardPage() {
             <span className="h-2 w-2 bg-red-500 rounded-full animate-pulse" />
             <h2 className="text-sm font-semibold text-foreground">{t("liveCrisisFeed")}</h2>
           </div>
-          <span className="text-[10px] text-muted-foreground">{needs.length} {t("needs").toLowerCase()}</span>
+          <span className="text-[10px] text-muted-foreground">{activeNeeds.length} {t("needs").toLowerCase()}</span>
         </div>
 
         {/* Need Cards */}
         <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2">
           <AnimatePresence>
-            {needs.map((need, i) => (
+            {activeNeeds.map((need, i) => (
               <motion.div
                 key={need.id}
                 initial={{ opacity: 0, y: 12 }}
@@ -137,8 +140,8 @@ export default function DashboardPage() {
               </motion.div>
             ))}
           </AnimatePresence>
-          {needs.length === 0 && (
-            <div className="text-center py-16 text-muted-foreground text-sm">No needs reported yet</div>
+          {activeNeeds.length === 0 && (
+            <div className="text-center py-16 text-muted-foreground text-sm">No active needs reported</div>
           )}
         </div>
 
@@ -160,7 +163,7 @@ export default function DashboardPage() {
 
       {/* Right: Map */}
       <div className="flex-1 min-h-[300px]">
-        <MapView needs={needs} selectedNeed={selectedNeed} onSelectNeed={setSelectedNeed} />
+        <MapView needs={activeNeeds} selectedNeed={selectedNeed} onSelectNeed={setSelectedNeed} />
       </div>
 
       {/* Volunteer Match Modal */}

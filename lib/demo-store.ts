@@ -115,14 +115,39 @@ class DemoStore {
   simpleMatch(need: Need, candidates: Volunteer[]) {
     const skillMap: Record<string, SkillType[]> = { Medical: ["Medical"], Rescue: ["Rescue", "Medical", "Logistics"], Food: ["Food Distribution", "Logistics"], Water: ["Logistics"], Shelter: ["Construction", "Logistics"], Clothing: ["Logistics"], Sanitation: ["Sanitation"], Education: ["Education"], Infrastructure: ["Construction", "Logistics", "Tech"] };
     const relevantSkills = skillMap[need.need_type as string] || [];
+
+    // Haversine distance helper
+    const haversineKm = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
+      const R = 6371;
+      const dLat = ((lat2 - lat1) * Math.PI) / 180;
+      const dLng = ((lng2 - lng1) * Math.PI) / 180;
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    };
+
     return candidates.map((v) => {
-      let score = 30;
+      // PROXIMITY (50% weight) — dominant factor
+      let proximityScore = 25; // default if no coords
+      let distKm: number | null = null;
+      if (need.lat && need.lng && v.lat && v.lng) {
+        distKm = haversineKm(need.lat, need.lng, v.lat, v.lng);
+        // <50km = 50pts, 50-200km = 30pts, 200-500km = 15pts, >500km = 5pts
+        if (distKm < 50) proximityScore = 50;
+        else if (distKm < 200) proximityScore = 30;
+        else if (distKm < 500) proximityScore = 15;
+        else proximityScore = 5;
+      }
+
+      // SKILL MATCH (30% weight)
       const matched = v.skills.filter((s) => relevantSkills.includes(s));
-      score += matched.length * 25;
-      score -= v.active_task_count * 10;
-      if (need.lat && need.lng && v.lat && v.lng) { const dist = Math.sqrt(Math.pow(need.lat - v.lat, 2) + Math.pow(need.lng - v.lng, 2)); score -= Math.min(20, dist * 2); }
-      score = Math.max(0, Math.min(100, Math.round(score)));
-      return { volunteer_id: v.id, score, reasoning: `${v.name} has relevant skills [${matched.join(", ") || "general"}] for this ${need.need_type} need. Currently handling ${v.active_task_count} active task(s).` };
+      const skillScore = Math.min(30, matched.length * 15);
+
+      // WORKLOAD (20% weight)
+      const workloadScore = Math.max(0, 20 - v.active_task_count * 10);
+
+      const score = Math.max(0, Math.min(100, Math.round(proximityScore + skillScore + workloadScore)));
+      const distStr = distKm !== null ? `${distKm.toFixed(0)}km away` : 'distance unknown';
+      return { volunteer_id: v.id, score, reasoning: `${v.name} is ${distStr} with skills [${matched.join(", ") || "general"}] for this ${need.need_type} need. Active tasks: ${v.active_task_count}.` };
     }).sort((a, b) => b.score - a.score).slice(0, 5);
   }
 }

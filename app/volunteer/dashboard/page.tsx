@@ -50,6 +50,7 @@ export default function VolunteerDashboardPage() {
   const { t } = useLanguage();
   const router = useRouter();
   const [volunteer, setVolunteer] = useState<VolunteerProfile | null>(null);
+  const [volunteerId, setVolunteerId] = useState<string | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [nearbyNeeds, setNearbyNeeds] = useState<Task[]>([]);
   const [activeTab, setActiveTab] = useState<"tasks" | "nearby" | "profile">("tasks");
@@ -59,12 +60,17 @@ export default function VolunteerDashboardPage() {
   // Get volunteer info from localStorage (fallback) or Firebase Auth
   const volName = typeof window !== "undefined" ? localStorage.getItem("resq-volunteer-name") : null;
 
-  const fetchNeeds = useCallback(async () => {
+  const fetchNeeds = useCallback(async (volId: string | null) => {
     try {
       const r = await fetch("/api/needs");
       if (r.ok) {
         const all = await r.json();
-        setTasks(all.filter((n: any) => n.status === "assigned"));
+        // Only show tasks assigned to THIS volunteer
+        if (volId) {
+          setTasks(all.filter((n: any) => n.status === "assigned" && n.assigned_volunteer_id === volId));
+        } else {
+          setTasks([]);
+        }
         setNearbyNeeds(all.filter((n: any) => n.status === "pending").slice(0, 10));
       }
     } catch { /* */ }
@@ -72,10 +78,12 @@ export default function VolunteerDashboardPage() {
 
   useEffect(() => {
     const isDemoMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
+    // Read stored volunteer ID
+    const storedVolId = typeof window !== "undefined" ? localStorage.getItem("resq-volunteer-id") : null;
 
     if (isDemoMode) {
-      // Demo mode — just fetch needs from API
-      fetchNeeds().then(() => setLoading(false));
+      setVolunteerId(storedVolId);
+      fetchNeeds(storedVolId).then(() => setLoading(false));
       return;
     }
 
@@ -86,31 +94,34 @@ export default function VolunteerDashboardPage() {
         return;
       }
 
+      const uid = user.uid;
+      setVolunteerId(uid);
+
       // Fetch volunteer profile
       try {
-        const volDoc = await getDoc(doc(db, "volunteers", user.uid));
+        const volDoc = await getDoc(doc(db, "volunteers", uid));
         if (volDoc.exists()) {
           setVolunteer(volDoc.data() as VolunteerProfile);
           localStorage.setItem("resq-volunteer-name", volDoc.data()?.name || "");
+          localStorage.setItem("resq-volunteer-id", uid);
         }
       } catch (err) {
         console.warn("Failed to fetch volunteer profile:", err);
       }
 
-      // Fetch needs from API (uses admin SDK, bypasses Firestore rules)
-      await fetchNeeds();
+      // Fetch needs filtered by this volunteer
+      await fetchNeeds(uid);
       setLoading(false);
 
       // Listen for assignments in real time
       try {
         const assignmentsQuery = query(
           collection(db, "assignments"),
-          where("volunteer_id", "==", user.uid),
+          where("volunteer_id", "==", uid),
           orderBy("matched_at", "desc")
         );
-        const unsubAssignments = onSnapshot(assignmentsQuery, (snapshot) => {
-          // Re-fetch needs when assignments change
-          fetchNeeds();
+        const unsubAssignments = onSnapshot(assignmentsQuery, () => {
+          fetchNeeds(uid);
         }, (err) => {
           console.warn("Assignments listener error:", err);
         });
@@ -124,11 +135,27 @@ export default function VolunteerDashboardPage() {
     return () => unsubAuth();
   }, [router, fetchNeeds]);
 
-  const handleAction = async (taskId: string, action: string) => {
-    setActionLoading(taskId);
-    await new Promise((r) => setTimeout(r, 800));
+  const handleAction = async (needId: string, action: string) => {
+    setActionLoading(needId);
+    try {
+      if (action === "complete") {
+        // Mark need as resolved via PATCH API
+        const res = await fetch("/api/needs", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: needId, status: "resolved" }),
+        });
+        if (res.ok) {
+          // Remove from local tasks immediately for snappy UX
+          setTasks((prev) => prev.filter((t) => t.id !== needId));
+          // Re-fetch to update counts
+          await fetchNeeds(volunteerId);
+        }
+      }
+    } catch (err) {
+      console.error("Action failed:", err);
+    }
     setActionLoading(null);
-    fetchNeeds();
   };
 
   const displayName = volunteer?.name || volName || "Volunteer";

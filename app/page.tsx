@@ -13,25 +13,25 @@ export default function LandingPage() {
   const { t } = useLanguage();
 
   const stats = [
-    { value: "5", label: "Languages" },
-    { value: "8", label: "Google Cloud APIs" },
-    { value: "<3s", label: "Avg. Match Time" },
-    { value: "24/7", label: "Always On" },
+    { value: "5", label: t("statLanguages") },
+    { value: "8", label: t("statAPIs") },
+    { value: "<3s", label: t("statMatchTime") },
+    { value: "24/7", label: t("statAlwaysOn") },
   ];
 
   const features = [
-    { icon: Sparkles, title: "Gemini AI Matching", desc: "Smart volunteer-to-crisis matching powered by Gemini 2.5 Flash. Ranks by skills, proximity, and workload." },
-    { icon: Map, title: "Live Crisis Map", desc: "Real-time heatmap and cluster view showing urgency pins across affected regions with Google Maps." },
-    { icon: Mic, title: "Voice & OCR Reports", desc: "Report emergencies by voice in 5 languages or snap a photo of paper surveys — AI extracts the data." },
-    { icon: Send, title: "Instant Dispatch", desc: "One-click volunteer assignment with WhatsApp, Email, and Push notifications — plus Google Maps navigation." },
-    { icon: BarChart3, title: "Impact Analytics", desc: "Track response times, volunteer utilization, and crisis resolution rates with real-time dashboards." },
-    { icon: Languages, title: "Multilingual Support", desc: "Full interface in English, Hindi, Tamil, Telugu, and Bengali — with live translation of all reports." },
+    { icon: Sparkles, title: t("featGemini"), desc: t("featGeminiDesc") },
+    { icon: Map, title: t("featMap"), desc: t("featMapDesc") },
+    { icon: Mic, title: t("featVoice"), desc: t("featVoiceDesc") },
+    { icon: Send, title: t("featDispatch"), desc: t("featDispatchDesc") },
+    { icon: BarChart3, title: t("featAnalytics"), desc: t("featAnalyticsDesc") },
+    { icon: Languages, title: t("featMultilingual"), desc: t("featMultilingualDesc") },
   ];
 
   const steps = [
-    { num: "1", title: "Report", desc: "Anyone reports an emergency via text, voice, or photo — no login required. Gemini AI extracts key details.", icon: AlertTriangle },
-    { num: "2", title: "Match", desc: "AI evaluates all available volunteers by skills, proximity, and workload — ranks them instantly.", icon: Sparkles },
-    { num: "3", title: "Dispatch", desc: "One click assigns the best volunteer with WhatsApp + Email + Push notifications and Google Maps navigation.", icon: Send },
+    { num: "1", title: t("stepReport"), desc: t("stepReportDesc"), icon: AlertTriangle },
+    { num: "2", title: t("stepMatch"), desc: t("stepMatchDesc"), icon: Sparkles },
+    { num: "3", title: t("stepDispatch"), desc: t("stepDispatchDesc"), icon: Send },
   ];
 
   const techStack = [
@@ -115,9 +115,9 @@ export default function LandingPage() {
       {/* ─── FEATURES ─── */}
       <section id="features" className="relative z-10 max-w-5xl mx-auto px-4 py-16 scroll-mt-20">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display">Everything you need for crisis response</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display">{t("featuresTitle")}</h2>
           <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-sm">
-            From AI-powered matching to multilingual voice reports — ResQ brings together the full power of Google Cloud in one platform.
+            {t("featuresSubtitle")}
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -136,8 +136,8 @@ export default function LandingPage() {
       {/* ─── HOW IT WORKS ─── */}
       <section id="how-it-works" className="relative z-10 max-w-4xl mx-auto px-4 py-16 scroll-mt-20">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display">How ResQ works</h2>
-          <p className="text-muted-foreground mt-3 text-sm">Three simple steps — from crisis report to volunteer dispatch in under 60 seconds.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display">{t("howTitle")}</h2>
+          <p className="text-muted-foreground mt-3 text-sm">{t("howSubtitle")}</p>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {steps.map(({ num, title, desc, icon: Icon }) => (
@@ -172,11 +172,11 @@ export default function LandingPage() {
 
       {/* ─── CTA ─── */}
       <section className="relative z-10 max-w-2xl mx-auto px-4 py-16 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display mb-3">Ready to make a difference?</h2>
-        <p className="text-muted-foreground text-sm mb-8">Join ResQ as a volunteer or coordinator. Every action counts when lives are at stake.</p>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground font-display mb-3">{t("ctaTitle")}</h2>
+        <p className="text-muted-foreground text-sm mb-8">{t("ctaSubtitle")}</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/auth/volunteer" className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 dark:bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:opacity-90 transition-google">
-            <HeartHandshake className="h-4 w-4" />Join as Volunteer
+            <HeartHandshake className="h-4 w-4" />{t("joinAsVolunteer")}
           </Link>
           <Link href="/auth/admin/login" className="inline-flex items-center gap-2 px-6 py-3 border border-border bg-card text-foreground rounded-xl text-sm font-semibold hover:bg-muted transition-google">
             <Shield className="h-4 w-4" />{t("coordinatorLogin")}
@@ -191,37 +191,37 @@ export default function LandingPage() {
             <div className="md:col-span-1">
               <ResQLogo size="md" />
               <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
-                AI-powered crisis response platform built on Google Cloud. Connecting volunteers to critical needs — instantly.
+                {t("footerDesc")}
               </p>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">Platform</h4>
+              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">{t("footerPlatform")}</h4>
               <ul className="space-y-2">
-                <li><Link href="/auth/admin/login" className="text-xs text-muted-foreground hover:text-foreground transition-google">Coordinator Dashboard</Link></li>
-                <li><Link href="/auth/volunteer" className="text-xs text-muted-foreground hover:text-foreground transition-google">Volunteer Portal</Link></li>
-                <li><Link href="/report" className="text-xs text-muted-foreground hover:text-foreground transition-google">Report Emergency</Link></li>
-                <li><Link href="/analytics" className="text-xs text-muted-foreground hover:text-foreground transition-google">Analytics</Link></li>
+                <li><Link href="/auth/admin/login" className="text-xs text-muted-foreground hover:text-foreground transition-google">{t("footerCoordinatorDash")}</Link></li>
+                <li><Link href="/auth/volunteer" className="text-xs text-muted-foreground hover:text-foreground transition-google">{t("footerVolunteerPortal")}</Link></li>
+                <li><Link href="/report" className="text-xs text-muted-foreground hover:text-foreground transition-google">{t("footerReportEmergency")}</Link></li>
+                <li><Link href="/analytics" className="text-xs text-muted-foreground hover:text-foreground transition-google">{t("analytics")}</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">Features</h4>
+              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">{t("footerFeatures")}</h4>
               <ul className="space-y-2">
-                {["Gemini AI Matching", "Voice & OCR Reports", "Live Crisis Heatmap", "Multi-channel Dispatch", "5-Language Support"].map((f) => (
+                {[t("featGemini"), t("featVoice"), t("featMap"), t("featDispatch"), t("featMultilingual")].map((f) => (
                   <li key={f} className="text-xs text-muted-foreground">{f}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">Technology</h4>
+              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-3">{t("footerTechnology")}</h4>
               <ul className="space-y-2">
-                {["Google Cloud Platform", "Firebase · Firestore", "Gemini 2.5 Flash", "Next.js 14", "Cloud Run"].map((t) => (
-                  <li key={t} className="text-xs text-muted-foreground">{t}</li>
+                {["Google Cloud Platform", "Firebase · Firestore", "Gemini 2.5 Flash", "Next.js 14", "Cloud Run"].map((tech) => (
+                  <li key={tech} className="text-xs text-muted-foreground">{tech}</li>
                 ))}
               </ul>
             </div>
           </div>
           <div className="mt-8 pt-6 border-t border-border text-center">
-            <p className="text-[11px] text-muted-foreground">© 2026 ResQ. Built on Google Cloud · Powered by Gemini AI.</p>
+            <p className="text-[11px] text-muted-foreground">{t("footerCopyright")}</p>
           </div>
         </div>
       </footer>

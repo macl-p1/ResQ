@@ -42,10 +42,12 @@ ${i + 1}. ID: ${v.id}
    Active tasks: ${v.active_task_count || 0}
 `).join('\n')}
 
-Rank ALL volunteers by suitability. Consider:
-1. SKILL MATCH (most important) — does volunteer have skills matching this crisis type?
-2. WORKLOAD — prefer volunteers with fewer active tasks
-3. DISTANCE — closer is better but never disqualify based on distance alone
+Rank ALL volunteers by suitability. SCORING WEIGHTS (strictly follow these):
+1. PROXIMITY (50% weight) — THE MOST IMPORTANT FACTOR. Volunteers closest to the crisis location MUST be ranked highest. A volunteer 10km away should score much higher than one 500km away even if the farther one has better skills.
+2. SKILL MATCH (30% weight) — does volunteer have skills matching this crisis type?
+3. WORKLOAD (20% weight) — prefer volunteers with fewer active tasks
+
+CRITICAL RULE: Always prefer the NEAREST available volunteer. Distance is the dominant factor in emergency response — every minute counts.
 
 Return ONLY valid JSON with NO markdown:
 {
@@ -53,10 +55,10 @@ Return ONLY valid JSON with NO markdown:
     {
       "volunteer_id": "exact id string",
       "score": number 0-100,
-      "reasoning": "2-3 sentence human-readable explanation of why this volunteer is suitable"
+      "reasoning": "2-3 sentence explanation mentioning their distance, skills and availability"
     }
   ],
-  "top_reasoning": "A detailed paragraph explaining why the top volunteer is the best match for this specific crisis, mentioning their skills, proximity and availability"
+  "top_reasoning": "A detailed paragraph explaining why the top volunteer is the best match, emphasizing their proximity to the crisis location, relevant skills, and current availability"
 }`;
 
   const result = await model.generateContent(prompt);

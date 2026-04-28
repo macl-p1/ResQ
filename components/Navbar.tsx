@@ -48,10 +48,16 @@ const LANDING_NAV = [
   { label: "Technology", href: "#tech-stack" },
 ];
 
-// Dashboard page links
+// Dashboard page links (admin only)
 const DASHBOARD_NAV = [
   { label: "Dashboard", href: "/dashboard", icon: MapPin },
   { label: "Analytics", href: "/analytics", icon: BarChart3 },
+  { label: "Report", href: "/report", icon: FileText },
+];
+
+// Volunteer dashboard links
+const VOLUNTEER_NAV = [
+  { label: "My Tasks", href: "/volunteer/dashboard", icon: Users },
   { label: "Report", href: "/report", icon: FileText },
 ];
 
@@ -71,7 +77,9 @@ export default function Navbar() {
   const isDashboard = pathname === "/dashboard";
   const isVolDashboard = pathname === "/volunteer/dashboard";
   const isAnalytics = pathname === "/analytics";
+  const isAdminSection = isDashboard || isAnalytics;
   const showDashboardNav = isDashboard || isVolDashboard || isAnalytics;
+  const currentNav = isVolDashboard ? VOLUNTEER_NAV : DASHBOARD_NAV;
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -221,10 +229,10 @@ export default function Navbar() {
             </nav>
           )}
 
-          {/* Dashboard page nav */}
+          {/* Dashboard/Volunteer page nav */}
           {showDashboardNav && (
             <nav className="flex items-center gap-1">
-              {DASHBOARD_NAV.map(({ label, href, icon: Icon }) => {
+              {currentNav.map(({ label, href, icon: Icon }) => {
                 const isActive = pathname === href;
                 return (
                   <Link key={href} href={href}
@@ -363,8 +371,8 @@ export default function Navbar() {
             </a>
           ))}
 
-          {/* Dashboard nav links on mobile */}
-          {showDashboardNav && DASHBOARD_NAV.map(({ label, href, icon: Icon }) => (
+          {/* Dashboard/Volunteer nav links on mobile */}
+          {showDashboardNav && currentNav.map(({ label, href, icon: Icon }) => (
             <Link key={href} href={href} onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-2 py-2 text-sm transition-google ${
                 pathname === href ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
