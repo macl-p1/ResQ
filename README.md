@@ -116,14 +116,3 @@ gcloud run deploy resq-app \
   --memory 1Gi
 ```
 
----
-
-## 5-Minute Demo Script
-
-1. **Landing Page:** Show the animated role-selection screen highlighting the dual-sided nature of the platform.
-2. **Coordinator Login:** Click Coordinator, use the seeded admin credentials (`admin@resq.org` / `ResQ2026!`) to log in.
-3. **The Dashboard:** Showcase the live Google Map with clustered urgency pins. Toggle to Heatmap view to show crisis density.
-4. **Ingest a Need (Voice):** Open the "Report a Need" drawer. Use the Voice tab to record a simulated emergency in Hindi/Tamil. Watch as STT transcribes it, and Gemini AI extracts the location, assigns an urgency score, and translates the description.
-5. **AI Matching:** Click "Find Volunteer" on a critical need. Show the Gemini AI loading animation as it analyzes candidates. Explain the Distance Matrix ETA and the "reasoning" paragraph where Gemini explains *why* it picked the top volunteer (e.g., matching medical skills). Click Assign.
-6. **Volunteer View:** Switch to the Volunteer mobile layout (or log in on a phone). Show the task appearing in "My Tasks". Walk through the Accept -> Start -> Complete lifecycle.
-7. **Analytics:** Finally, navigate to the Analytics page to see the real-time Google-styled charts reflecting the newly completed task and updated average response times.
