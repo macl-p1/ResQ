@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Material Design 3 Design System ─────────────────────────────── */
+
+@layer base {
+  :root {
+    /* Google Brand Colors */
+    --google-blue: #1A73E8;
+    --google-blue-light: #4285F4;
+    --google-blue-hover: #1765CC;
+    --google-red: #D93025;
+    --google-red-light: #EA4335;
+    --google-green: #188038;
+    --google-green-light: #34A853;
+    --google-yellow: #F29900;
+    --google-yellow-light: #FBBC04;
+
+    /* Surface & Background */
+    --background: 210 17% 98%;        /* #F8F9FA */
+    --foreground: 213 14% 13%;        /* #202124 */
+    --card: 0 0% 100%;                /* #FFFFFF */
+    --card-foreground: 213 14% 13%;   /* #202124 */
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 14% 13%;
+
+    /* Primary = Google Blue */
+    --primary: 214 82% 51%;           /* #1A73E8 */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary = Google Red */
+    --secondary: 4 74% 49%;           /* #D93025 */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted / Neutral */
+    --muted: 210 14% 93%;             /* #E8EAED */
+    --muted-foreground: 213 5% 47%;   /* #5F6368 */
+
+    /* Accent */
+    --accent: 210 14% 96%;            /* #F1F3F4 */
+    --accent-foreground: 213 14% 13%;
+
+    /* Destructive = Google Red */
+    --destructive: 4 74% 49%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Inputs */
+    --border: 210 14% 91%;            /* #DADCE0 */
+    --input: 210 14% 91%;
+    --ring: 214 82% 51%;
+
+    /* Radius — MD3 values */
+    --radius: 0.75rem;                /* 12px for cards */
+    --radius-button: 1.5rem;          /* 24px for buttons */
+    --radius-input: 0.5rem;           /* 8px for inputs */
+  }
+
+  /* Dark mode override (optional, for map info windows etc.) */
+  .dark {
+    --background: 213 14% 13%;
+    --foreground: 210 17% 98%;
+    --card: 220 13% 18%;
+    --card-foreground: 210 17% 98%;
+    --popover: 220 13% 18%;
+    --popover-foreground: 210 17% 98%;
+    --primary: 214 82% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 4 74% 55%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 13% 22%;
+    --muted-foreground: 210 11% 71%;
+    --accent: 220 13% 22%;
+    --accent-foreground: 210 17% 98%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 26%;
+    --input: 220 13% 26%;
+    --ring: 214 82% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ─── Material Design 3 Elevation Shadows ─────────────────────────────────── */
+
+.elevation-0 { box-shadow: none; }
+.elevation-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.12); }
+.elevation-2 { box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.12); }
+.elevation-3 { box-shadow: 0 4px 8px rgba(0,0,0,0.08), 0 6px 12px rgba(0,0,0,0.12); }
+.elevation-4 { box-shadow: 0 8px 16px rgba(0,0,0,0.08), 0 12px 24px rgba(0,0,0,0.12); }
+.elevation-hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.14);
+  transform: translateY(-2px);
+}
+
+/* ─── Google Standard Transitions ──────────────────────────────────────────── */
+
+.transition-google {
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────────────────── */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #DADCE0;
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #BDC1C6;
+}
+
+/* ─── Animations ───────────────────────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4); }
+  50%      { box-shadow: 0 0 0 12px rgba(26, 115, 232, 0); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes soundWave {
+  0%, 100% { height: 4px; }
+  50%      { height: 20px; }
+}
+
+.animate-fade-in-up { animation: fadeInUp 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-fade-in    { animation: fadeIn 300ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-pulse-glow { animation: pulseGlow 2s infinite; }
+.animate-count-up   { animation: countUp 500ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-gradient   { animation: gradientShift 6s ease infinite; background-size: 200% 200%; }
+
+/* ─── Google Button Styles ─────────────────────────────────────────────────── */
+
+.btn-google-primary {
+  background-color: var(--google-blue);
+  color: white;
+  border-radius: var(--radius-button);
+  padding: 0 24px;
+  height: 48px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-google-primary:hover {
+  background-color: var(--google-blue-hover);
+  box-shadow: 0 2px 4px rgba(26, 115, 232, 0.3);
+}
+.btn-google-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── Floating Label Input ─────────────────────────────────────────────────── */
+
+.floating-label-group {
+  position: relative;
+}
+.floating-label-group input {
+  width: 100%;
+  padding: 20px 16px 8px;
+  border: 1.5px solid #DADCE0;
+  border-radius: var(--radius-input);
+  font-size: 14px;
+  color: #202124;
+  background: white;
+  transition: border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+.floating-label-group input:focus {
+  border-color: var(--google-blue);
+}
+.floating-label-group label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #5F6368;
+  pointer-events: none;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.floating-label-group input:focus + label,
+.floating-label-group input:not(:placeholder-shown) + label {
+  top: 10px;
+  transform: translateY(0);
+  font-size: 11px;
+  color: var(--google-blue);
+  font-weight: 500;
+}
+
+/* ─── Smooth HTML Scroll ───────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Cursor Reset — No custom cursors ─────────────────────────────────────── */
+* {
+  cursor: default !important;
+}
+a, button, [role="button"], input[type="submit"], label[class*="cursor"], select, summary {
+  cursor: pointer !important;
+}
+input, textarea, [contenteditable] {
+  cursor: text !important;
+}
+input[type="range"] {
+  cursor: grab !important;
+}
