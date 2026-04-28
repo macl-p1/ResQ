@@ -9,6 +9,9 @@ RUN npm ci
 # Copy source + .env.production (Next.js reads NEXT_PUBLIC_ from it)
 COPY . .
 
+# Create public dir if it doesn't exist (Next.js standalone needs it)
+RUN mkdir -p public
+
 RUN npm run build
 
 # ── Stage 2: Production runner ──────────────────────────────────
